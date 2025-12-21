@@ -67,7 +67,7 @@ Example Output:
                 "lease_commence_date": "1979",
                 "resale_price": "267000",
                 "remaining_lease_years": 55.42,
-                "storey_mid": 2,
+                "storey": 2,
                 "year": 2023,
                 "month_num": 1
             }
@@ -86,7 +86,7 @@ Optional filters:
 - `flat_model` : str
 - `floor_area_sqm` : float
 - `remaining_lease_years` : int
-- `storey_mid` : int
+- `storey` : int
 - `year` : int
 - `month_num` : int
 
@@ -103,7 +103,7 @@ Example Output:
 ## analysis/trend
 
 Mehod: [GET] <br>
-Description: Shows last 12 months resale prices.<br>
+Description: Shows last 12 months average resale prices.<br>
 
 Optional filters:
 
@@ -112,9 +112,7 @@ Optional filters:
 - `flat_model` : str
 - `floor_area_sqm` : float
 - `remaining_lease_years` : int
-- `storey_mid` : int
-- `year` : int
-- `month_num` : int
+- `storey` : int
 
 Example Output:
 
@@ -153,7 +151,7 @@ Payload required:
 - `flat_model` : str
 - `floor_area_sqm` : float
 - `remaining_lease_years` : int
-- `storey_mid` : int
+- `storey` : int
 - `year` : int
 - `month_num` : int
 
