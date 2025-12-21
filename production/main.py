@@ -9,7 +9,7 @@ from api_analysis import router as analysis_router
 import data
 import prediction_model as pm
 
-# startup
+# startup #
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Type of hdb_resale_data:", type(data.hdb_resale_data))
@@ -26,7 +26,6 @@ app = FastAPI(lifespan=lifespan)
 # Include routes from api.py
 app.include_router(analysis_router)
 
-# Optional: root endpoint
 @app.get("/")
 def root():
     return {"message": "Welcome to the wenkang's API"}
