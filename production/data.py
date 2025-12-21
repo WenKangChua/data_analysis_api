@@ -4,31 +4,20 @@ import pandas as pd
 hdb_resale_data: pd.DataFrame | None = None
 
 def generate_months(year):
+    # Generate a list of months in year-month format. E.g. {"month": "2025-12"}.
+    # Used as one of params, filters.
     return [f'{{"month": "{year}-{m:02d}"}}' for m in range(1, 13)]
 
-def calculate_storey_upper(storey: int):
-    # HDB resale data contains storey ranges in multiples of 3, etc 01 TO 03, 04 TO 06.
-    # This function will calculate the upper range of the storey.
-    # For eg, user input 4, return 6.
-
-    # mod == 1, lower range. mod == 2, mid range. mod == 3, upper range
-    mod = storey % 3
-    if mod == 0:
-        storey_upper = storey
-    else:
-        storey_upper = 3 - mod + storey
-
-    return storey_upper
-
 def load_hdb_resale_data():
-    #hdb resales flat prices dataset
+    # building dataframe, hdb resales flat prices dataset through gov.sg API
     url = "https://data.gov.sg/api/action/datastore_search"
     all_records = []
-
+    
+    # limit of only 500 rows per call
     limit = 500
 
-    # years = [2023,2024,2025]
-    years = [2025]
+    # Get last 3 years of data
+    years = [2023,2024,2025]
     months = []
     for y in years:
         months.extend(generate_months(y))
@@ -56,6 +45,7 @@ def load_hdb_resale_data():
 
     df = pd.DataFrame(all_records)
     
+    # Data cleaning / feature engineer
     # convert resale_price to numeric
     df["resale_price"] = pd.to_numeric(df["resale_price"])
 
