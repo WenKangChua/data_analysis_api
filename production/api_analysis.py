@@ -78,6 +78,6 @@ def predict_resale_price(params: Parameters):
                                      year, month_num)
     return {
         "Predicted Price": "${:,.2f}".format(result),
-        "Mean Absolute Error": "{:.2f}".format(mae),
+        "Mean Absolute Error": "${:,.2f}".format(mae),
         "R Squared" : "{:.2f}".format(r_square)
     }
