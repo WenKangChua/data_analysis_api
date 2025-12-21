@@ -12,7 +12,6 @@ Key highlights:
 
 4) Customizable queries: filter results by town, flat type, floor area, lease years, and more.
 
-5) Interactive API docs available via SwaggerUI at `http://127.0.0.1:8000/docs`.
 
 # How to use
 ## Packages
@@ -34,8 +33,8 @@ Make sure you have Python 3.9+ installed. Then install the required packages:
 
 # API Reference
 
-Below documents the API endpoints. The API docs can also be accessed using FastAPI - SwaggerUI `http://127.0.0.1:8000/docs`.
-
+Below documents the API endpoints. The API docs can also be accessed using FastAPI - SwaggerUI `http://127.0.0.1:8000/docs`. Please take note that currently, only 2023, 2024 & 2025 data are available. If you want to add/remove years, please do so in `data.py line 19`.
+ 
 **Available endpoints**
 
     [GET]  /analysis/sample -> View dataset samples
@@ -163,3 +162,7 @@ Example Output:
         "Mean Absolute Error": "$29,362.30",
         "R Squared": "0.95"
     }
+
+# Troubleshooting
+
+1. If there are no results, please trying again with different filters. A tip is to include the parameters one by one to accurately idenfity where the issue is.
