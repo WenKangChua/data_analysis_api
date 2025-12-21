@@ -39,16 +39,22 @@ Below documents the API endpoints. The API docs can also be accessed using FastA
 **Available endpoints**
 
     [GET]  /analysis/sample -> View dataset samples
-    [GET]  /analysis/basic_stats -> Summary statistics with filters
+    [GET]  /analysis/summary_stats -> Summary statistics with filters
+    [GET]  /analysis/trend -> Shows last 12 month resale prices
     [POST] /analysis/predict -> Predict resale prices using Random Forest
 
-### /Sample 
-Shows you a row by row sample of the dataset in a column:value format.  
-- Accepts parameter of limit.  
-    - Default value 1, minimum value 1, maximum value 10 
+## analysis/sample
+Method: [GET] <br>
+Description: Return a row-by-row sample of the dataset.<br>
+
+Optional filters:
+`LIMIT` : int
+- Default: 1
+- Min: 1
+- Max: 10
 
 
-Result Example:
+Example Output: 
 
         [
             {
@@ -67,22 +73,25 @@ Result Example:
             }
         ]
 
-### /basic_stats
+## analysis/summary_stats
 
-Shows basic summary statistic of the HDB resale prices.
-
-Accepts a parameter of:
-- town: str | None = Field(None, description="Filter by town")
-- flat_type: str | None = Field(None, description="Filter by flat type")
-- flat_model: str | None = Field(None, description="Type of flat model")
-- floor_area_sqm: float | None = Field(None, description="Floor area in square meters")
-- remaining_lease_years: int | None = Field(None, description="Remaining lease in years")
-- storey_mid: int | None = Field(None, description="Mid storey level")
-- year: int | None = Field(None, description="Year of transaction")
-- month_num: int | None = Field(None, description="Month of transaction (numeric)")
+Method: [GET] <br>
+Description: Shows summary statistic of HDB resale prices.<br>
 
 
-Result Example:
+Optional filters:
+
+- `town` : str
+- `flat_type` : str
+- `flat_model` : str
+- `floor_area_sqm` : float
+- `remaining_lease_years` : int
+- `storey_mid` : int
+- `year` : int
+- `month_num` : int
+
+
+Example Output:
 
     {
         "average_resale_price": "$ 657,143.85",
@@ -91,24 +100,68 @@ Result Example:
         "min_resale_price": "$ 150,000.00"
     }
 
-### /predict
+## analysis/trend
 
-Uses a random forest prediction model to predict resale prices
+Mehod: [GET] <br>
+Description: Shows last 12 months resale prices.<br>
 
-Accepts a payload of:
-- town: str = Field(None, description="Filter by town")
-- flat_type: str = Field(None, description="Filter by flat type")
-- flat_model: str = Field(None, description="Type of flat model")
-- floor_area_sqm: float = Field(None, description="Floor area in square meters")
-- remaining_lease_years: int = Field(None, description="Remaining lease in years")
-- storey_mid: int = Field(None, description="Mid storey level")
-- year: int = Field(None, description="Year of transaction")
-- month_num: int = Field(None, description="Month of transaction (numeric)")
+Optional filters:
 
-Result Example:
+- `town` : str
+- `flat_type` : str
+- `flat_model` : str
+- `floor_area_sqm` : float
+- `remaining_lease_years` : int
+- `storey_mid` : int
+- `year` : int
+- `month_num` : int
 
-    [
-        "Mean Absolute Error: 27285.42",
-        "R Squared: 0.96",
-        "Predicted Price: $763,679.80"
-    ]
+Example Output:
+
+        [
+            {
+                "month": "2025-01-01",
+                "resale_price": "44,911,664.00"
+            },
+            {
+                "month": "2025-02-01",
+                "resale_price": "37,951,768.00"
+            },
+            {
+            .
+            .
+            .    
+            },
+            {
+                "month": "2025-11-01",
+                "resale_price": "28,248,776.00"
+            },
+            {
+                "month": "2025-12-01",
+                "resale_price": "26,904,328.00"
+            }
+        ]
+
+## analysis/predict
+
+Method: [POST] <br>
+Description: Predicts resale prices using a Random Forest model.<br>
+
+Payload required:
+- `town` : str
+- `flat_type` : str
+- `flat_model` : str
+- `floor_area_sqm` : float
+- `remaining_lease_years` : int
+- `storey_mid` : int
+- `year` : int
+- `month_num` : int
+
+
+Example Output:
+
+    {
+        "Predicted Price": "$807,174.79",
+        "Mean Absolute Error": "$29,362.30",
+        "R Squared": "0.95"
+    }
