@@ -22,6 +22,19 @@ class Parameters(BaseModel):
             return v 
         return cal.calculate_storey_upper(v)
 
+class TrendParameters(BaseModel): 
+    town: str | None 
+    flat_type: str | None
+    flat_model: str | None 
+    floor_area_sqm: float | None 
+    remaining_lease_years: int | None 
+    storey: int | None
+
+    @field_validator("storey", mode="before") 
+    def transform_storey(cls, v): 
+        if v is None: 
+            return v 
+        return cal.calculate_storey_upper(v)
 
 @router.get("/sample")
 def get_sample (
@@ -29,7 +42,6 @@ def get_sample (
 ):
     sample_data = cal.query_sample_data(data.hdb_resale_data,limit)
     return sample_data.to_dict(orient="records")
-
 
 @router.get("/summary_stats")
 def get_basic_stats(params: Parameters = Depends()):
@@ -51,9 +63,8 @@ def get_basic_stats(params: Parameters = Depends()):
         "min_resale_price": "$ {:,.2f}".format(min_price)
     }
 
-
 @router.get("/trend")
-def resale_price_over_12_month(params: Parameters = Depends()):
+def resale_price_over_12_month(params: TrendParameters = Depends()):
     df = data.hdb_resale_data
 
     for column, value in params.model_dump().items():
@@ -65,7 +76,6 @@ def resale_price_over_12_month(params: Parameters = Depends()):
     df["month"] = df["month"].dt.date
 
     return df.to_dict(orient="records")
-
 
 @router.post("/predict")
 def predict_resale_price(params: Parameters):
