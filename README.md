@@ -18,7 +18,7 @@ Key highlights:
 ## Packages
 Make sure you have Python 3.9+ installed. Then install the required packages:
 
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 
 ## Quick Start 
