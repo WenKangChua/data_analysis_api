@@ -5,7 +5,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 import pandas as pd
-import data
 
 trained_model: None
 X_test: None
@@ -16,7 +15,7 @@ def train_model(df_model: pd.DataFrame):
     X = df_model.drop(columns=["resale_price"])
     y = df_model["resale_price"]
 
-    # Train-test split (random; for forecasting you may prefer time-based split)
+    # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.15, random_state=42
     )
