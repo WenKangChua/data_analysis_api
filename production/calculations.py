@@ -24,7 +24,7 @@ def calculate_max_price(df: pd.DataFrame, column: str):
     result = df[column].max()
     return result
 
-def calculate_last_n_month_resale_prices(df: pd.DataFrame, month_offset: int, month_column: str):
+def calculate_last_n_month_mean_resale_prices(df: pd.DataFrame, month_offset: int, month_column: str):
 
     max_date = df[month_column].max()
     
@@ -37,7 +37,3 @@ def calculate_last_n_month_resale_prices(df: pd.DataFrame, month_offset: int, mo
             .reset_index())
 
     return result
-
-
-
-
