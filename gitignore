@@ -1,0 +1,31 @@
+# Byte-code files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Distribution / packaging
+.Python
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDE specific files
+.idea/  # For PyCharm
+.vscode/ # For VS Code (uncomment if you want to ignore the whole folder)
+
+# Temporary and backup files
+*~
+*.bak
+.ipynb_checkpoints # Jupyter notebook checkpoints
+
+# Environment variables file
+.env
