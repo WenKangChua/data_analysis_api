@@ -70,8 +70,8 @@ def load_hdb_resale_data():
     # add lease years(months) into lease months
     df["remaining_lease_years"] = (df["remaining_lease_months"] + df["remaining_lease_years"]).round(2)
     
-    # extract storey_upper from storey_range
-    df["storey_upper"] = df['storey_range'].str.extract(r' TO (\d+)').astype(int)
+    # extract upper range from storey_range
+    df["storey"] = df['storey_range'].str.extract(r' TO (\d+)').astype(int)
                        
     
     # convert floor area sqm to float

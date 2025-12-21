@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, Depends
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, field_validator
 import calculations as cal
 import data
 import prediction_model as predict
@@ -7,14 +7,20 @@ import prediction_model as predict
 router = APIRouter(prefix="/analysis", tags=["analysis"])
 
 class Parameters(BaseModel):
-    town: str | None = Field(None, description="Filter by town")
-    flat_type: str | None = Field(None, description="Filter by flat type")
-    flat_model: str | None = Field(None, description="Type of flat model")
-    floor_area_sqm: float | None = Field(None, description="Floor area in square meters")
-    remaining_lease_years: int | None = Field(None, description="Remaining lease in years")
-    storey: int | None = Field(None, description="storey level")
-    year: int | None = Field(None, description="Year of transaction")
-    month_num: int | None = Field(None, description="Month of transaction (numeric)")
+    town: str | None
+    flat_type: str | None
+    flat_model: str | None
+    floor_area_sqm: float | None
+    remaining_lease_years: int | None
+    storey: int | None
+    year: int | None
+    month_num: int | None
+
+    @field_validator("storey", mode="before") 
+    def transform_storey(cls, v): 
+        if v is None: 
+            return v 
+        return cal.calculate_storey_upper(v)
 
 
 @router.get("/sample")
@@ -69,12 +75,12 @@ def predict_resale_price(params: Parameters):
     flat_model = params.flat_model
     floor_area_sqm = params.floor_area_sqm
     remaining_lease_years = params.remaining_lease_years
-    storey_upper = data.calculate_storey_upper(params.storey)
+    storey = data.calculate_storey_upper(params.storey)
     year = params.year
     month_num = params.month_num
 
     result,mae,r_square = predict.predict_future_price(town, flat_type, flat_model, floor_area_sqm, 
-                                     remaining_lease_years,storey_upper,
+                                     remaining_lease_years,storey,
                                      year, month_num)
     return {
         "Predicted Price": "${:,.2f}".format(result),

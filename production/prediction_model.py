@@ -22,7 +22,7 @@ def train_model(df_model: pd.DataFrame):
     )
 
     categorical = ["town", "flat_type", "flat_model"]
-    numeric = ["floor_area_sqm", "remaining_lease_years", "storey_upper", "year", "month_num"]
+    numeric = ["floor_area_sqm", "remaining_lease_years", "storey", "year", "month_num"]
 
     preprocess = ColumnTransformer([
         ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
@@ -45,7 +45,7 @@ def train_model(df_model: pd.DataFrame):
 
 def predict_future_price(town: str, flat_type: str, flat_model: str, 
                          floor_area_sqm: float, remaining_lease_years: int,
-                         storey_upper: int, year: int, month_num: int):
+                         storey: int, year: int, month_num: int):
      
      # Evaluate
      preds = trained_model.predict(X_test)
@@ -58,7 +58,7 @@ def predict_future_price(town: str, flat_type: str, flat_model: str,
         "flat_model": flat_model,
         "floor_area_sqm": floor_area_sqm,
         "remaining_lease_years": remaining_lease_years,
-        "storey_upper": storey_upper,
+        "storey": storey,
         "year": year,
         "month_num": month_num
      }])
