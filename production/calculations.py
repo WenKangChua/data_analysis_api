@@ -27,14 +27,15 @@ def calculate_max_price(df: pd.DataFrame, column: str):
 def calculate_last_n_month_resale_prices(df: pd.DataFrame, month_offset: int, month_column: str):
 
     max_date = df[month_column].max()
+    
     min_date = max_date - pd.DateOffset(months = month_offset)
 
     df = df[df[month_column] > min_date]
 
     result = (df.groupby(month_column)["resale_price"]
-              .sum() 
-              .reset_index())
-    
+            .mean() 
+            .reset_index())
+
     return result
 
 

@@ -54,7 +54,7 @@ def resale_price_over_12_month(params: Parameters = Depends()):
         if value:
             df = df[df[column]==value]
 
-    df = cal.calculate_last_n_month_resale_prices(df, 12, "month")
+    df = cal.calculate_last_n_month_mean_resale_prices(df, 12, "month")
     df["resale_price"] = df["resale_price"].map("{:,.2f}".format)
     df["month"] = df["month"].dt.date
 
