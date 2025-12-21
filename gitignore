@@ -29,3 +29,6 @@ env/
 
 # Environment variables file
 .env
+
+# Others
+.DS_Store
