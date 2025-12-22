@@ -27,14 +27,6 @@ def percentage_train_test_split(df: pd.DataFrame, percentage_train: float):
 
 def train_model(df_model: pd.DataFrame):
 
-    # X = df_model.drop(columns=["resale_price"])
-    # y = df_model["resale_price"]
-
-    # # Train-test split
-    # x_train, x_test, y_train, y_test = train_test_split(
-    #     X, y, test_size=0.15, random_state=42
-    # )
-
     x_train, x_test, y_train, y_test = percentage_train_test_split(
          df_model, percentage_train=0.8
     )
