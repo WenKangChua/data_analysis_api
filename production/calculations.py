@@ -1,7 +1,7 @@
 import pandas as pd
 
 def query_sample_data(df: pd.DataFrame, limit: int):
-    sample_data = df.head(limit)
+    sample_data = df.sample(limit)
     return sample_data
 
 def calculate_median_price(df: pd.DataFrame, column: str):
