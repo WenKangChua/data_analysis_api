@@ -14,7 +14,7 @@ import prediction_model as pm
 async def lifespan(app: FastAPI):
     print("Type of hdb_resale_data:", type(data.hdb_resale_data))
     data.hdb_resale_data = data.load_hdb_resale_data()
-    pm.trained_model, pm.X_test, pm.y_test = pm.train_model(data.hdb_resale_data)
+    pm.trained_model, pm.x_test, pm.y_test = pm.train_model(data.hdb_resale_data)
     print("Data loaded into DataFrame at startup!")
     print("Type of hdb_resale_data:", type(data.hdb_resale_data))
     yield
