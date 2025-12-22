@@ -7,17 +7,36 @@ from sklearn.metrics import mean_absolute_error, r2_score
 import pandas as pd
 
 trained_model: None
-X_test: None
+x_test: None
 y_test: None
+
+def percentage_train_test_split(df: pd.DataFrame, percentage_train: float):
+     df = df.sort_values(by="month", ascending=False)
+     split_df_cutoff = int(len(df) * percentage_train)
+
+     train = df.iloc[:split_df_cutoff]
+     test = df.iloc[split_df_cutoff:]
+
+     x_train = train.drop(columns="resale_price")
+     y_train = train["resale_price"]
+
+     x_test = test.drop(columns="resale_price")
+     y_test = test["resale_price"]
+
+     return x_train, x_test, y_train, y_test
 
 def train_model(df_model: pd.DataFrame):
 
-    X = df_model.drop(columns=["resale_price"])
-    y = df_model["resale_price"]
+    # X = df_model.drop(columns=["resale_price"])
+    # y = df_model["resale_price"]
 
-    # Train-test split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.15, random_state=42
+    # # Train-test split
+    # x_train, x_test, y_train, y_test = train_test_split(
+    #     X, y, test_size=0.15, random_state=42
+    # )
+
+    x_train, x_test, y_train, y_test = percentage_train_test_split(
+         df_model, percentage_train=0.8
     )
 
     categorical = ["town", "flat_type", "flat_model"]
@@ -38,16 +57,16 @@ def train_model(df_model: pd.DataFrame):
     )
 
     pipeline = Pipeline([("prep", preprocess), ("model", rf_model)])
-    trained_model = pipeline.fit(X_train, y_train)
+    trained_model = pipeline.fit(x_train, y_train)
     
-    return trained_model, X_test, y_test
+    return trained_model, x_test, y_test
 
 def predict_future_price(town: str, flat_type: str, flat_model: str, 
                          floor_area_sqm: float, remaining_lease_years: int,
                          storey: int, year: int, month_num: int):
      
      # Evaluate
-     preds = trained_model.predict(X_test)
+     preds = trained_model.predict(x_test)
      mae = mean_absolute_error(y_test, preds)
      r_square = r2_score(y_test, preds)
 
