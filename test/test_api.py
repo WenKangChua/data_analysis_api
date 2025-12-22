@@ -1,3 +1,4 @@
+# To test API
 import requests
 import json
 
@@ -35,12 +36,12 @@ end_point_4 = "/analysis/predict"
 payload_4 = {
     "town": "TAMPINES",
     "flat_type": "5 ROOM",
-    "flat_model": "Model A",
-    "floor_area_sqm": 110.0,
+    "flat_model": "Improved",
+    "floor_area_sqm": 120.0,
     "remaining_lease_years": 90,
     "storey": 10,
     "year": 2026,
-    "month_num": 3
+    "month_num": 1
 }
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
