@@ -1,4 +1,4 @@
-# HDB Resales Prices Data Analytics Through Server Side API
+# HDB Resales Prices
 
 This project provides a server-side API built with FastAPI that enables users to perform data analytics on Singapore’s HDB resale transactions. By leveraging official datasets from [data.gov.sg](https://data.gov.sg/datasets?query=hdb+resale&resultId=d_8b84c4ee58e3cfc0ece0d773c8ca6abc), the API offers endpoints for exploring raw samples, generating statistical summaries, and predicting resale prices using machine learning.
 
@@ -23,7 +23,7 @@ Make sure you have Python 3.9+ installed. Then install the required packages:
 ## Quick Start 
 
 1) Clone the repository
-2) Locate `main.py` directory
+2) Change directory to the one in `main.py`.
 3) Start the API server by runing `python3 -m uvicorn main:app`.
    - The default server will be http://127.0.0.1:8000. 
    - To host other than localhost, `python3 -m uvicorn main:app --host <insert ip> --port <insert port>`
