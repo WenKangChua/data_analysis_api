@@ -1,8 +1,3 @@
-# Step 1: Install FastAPI and Uvicorn (server)
-# pip install fastapi uvicorn
-
-# Step 2: Create a file called main.py and paste this code
-
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from api_analysis import router as analysis_router
@@ -29,3 +24,4 @@ app.include_router(analysis_router)
 @app.get("/")
 def root():
     return {"message": "Welcome to the wenkang's API"}
+
